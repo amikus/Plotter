@@ -6,22 +6,36 @@
 
 using namespace std;
 
-void display() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void myInit(void)
+{
+	glClearColor(0.0, 0.0, 0.0, 1.0);	// background color: black
+	glColor3f(1.0f, 1.0f, 1.0f);		// drawing color: white
+	glLineWidth(5.0);					// a line is 5 pixels wide
+	glMatrixMode(GL_PROJECTION);		// set matrix mode
+	glLoadIdentity();					// load identity matrix
+	gluOrtho2D(-2.0, 2.0, -2.0, 2.0);	// orthographic mapping
 
+}
+
+void display() {
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glutSwapBuffers();
+
 }
 
 int main(int argc, char**argv)
 {
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(500, 500);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow("HW5");
+	// Basic glut setup
+	glutInit(&argc, argv);										// initialize toolkit
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);	// set display mode
+	glutInitWindowSize(500, 500);								// set window size
+	glutInitWindowPosition(100, 100);							// set window position on screen
+	glutCreateWindow("HW5");									// open screen window
 
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+	myInit();	// additional inits
 
+	// register callback functions
 	glutDisplayFunc(display);
 
 	glMatrixMode(GL_PROJECTION);
