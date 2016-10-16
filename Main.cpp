@@ -26,6 +26,10 @@ void display() {
 	glColor3f(0.0, 0.0, 1.0);
 	glutWireSphere(2.0, 10, 10);
 
+	// draw a yellow plane
+	glColor3f(1.0, 0.0, 1.0);
+	// draw the plane here
+
 	glutSwapBuffers();	// draw to screen
 
 }
