@@ -13,7 +13,7 @@ void myInit(void)
 	glLineWidth(5.0);					// a line is 5 pixels wide
 	glMatrixMode(GL_PROJECTION);		// set matrix mode
 	glLoadIdentity();					// load identity matrix
-	gluOrtho2D(-2.0, 2.0, -2.0, 2.0);	// orthographic mapping
+	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);	// orthographic mapping
 
 }
 
@@ -22,6 +22,24 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glutSwapBuffers();
 
+}
+
+void reshape(int w, int h) {
+
+	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	if (w <= h) {
+		glOrtho(-4.0, 4.0, -4.0 * (GLfloat)h / (GLfloat)w, 4.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
+	}
+	else {
+		glOrtho(-4.0 * (GLfloat)w / (GLfloat)h, 4.0* (GLfloat)w / (GLfloat)h, -4.0, 4.0, -10.0, 10.0);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
 }
 
 int main(int argc, char**argv)
@@ -37,6 +55,7 @@ int main(int argc, char**argv)
 
 	// register callback functions
 	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
 
 	glMatrixMode(GL_PROJECTION);
 
