@@ -20,15 +20,21 @@ void myInit(void)
 void display() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen to bg color
+	glMatrixMode(GL_MODELVIEW);
 
 	// draw a blue sphere
-	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glColor3f(0.0, 0.0, 1.0);
-	glutWireSphere(2.0, 10, 10);
+	 glColor3f(0.0, 0.0, 1.0);
+	 glutWireSphere(2.0, 10, 10);
 
-	// draw a yellow plane
-	glColor3f(1.0, 0.0, 1.0);
-	// draw the plane here
+	// draw a yellow plane	
+	glBegin(GL_QUADS);
+		glColor3f(1.0, 1.0, 0.0);
+
+		glVertex3f(2.0, 0.0, 2.0);
+		glVertex3f(-2.0, 0.0, 2.0);
+		glVertex3f(-2.0, 0.0, -2.0);
+		glVertex3f(2.0, 0.0, -2.0);
+	glEnd();
 
 	glutSwapBuffers();	// draw to screen
 
@@ -41,10 +47,10 @@ void reshape(int w, int h) {
 	glLoadIdentity();
 
 	if (w <= h) {
-		glOrtho(-4.0, 4.0, -4.0 * (GLfloat)h / (GLfloat)w, 4.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
+		glOrtho(-10.0, 10.0, -10.0 * (GLfloat)h / (GLfloat)w, 10.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
 	}
 	else {
-		glOrtho(-4.0 * (GLfloat)w / (GLfloat)h, 4.0* (GLfloat)w / (GLfloat)h, -4.0, 4.0, -10.0, 10.0);
+		glOrtho(-10.0 * (GLfloat)w / (GLfloat)h, 10.0* (GLfloat)w / (GLfloat)h, -10.0, 10.0, -10.0, 10.0);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
