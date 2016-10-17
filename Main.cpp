@@ -18,6 +18,9 @@ void myInit(void)
 	glMatrixMode(GL_PROJECTION);		// set matrix mode
 	glLoadIdentity();					// load identity matrix
 	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);	// orthographic mapping
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
 }
 
@@ -44,7 +47,7 @@ void display() {
 	// draw a blue sphere
 	 GLfloat xstart = -2, xend = 2;
 	 GLfloat zstart = -2, zend = 2;
-	 GLfloat inc = 0.2;
+	 GLfloat inc = 0.5;
 
 
 
