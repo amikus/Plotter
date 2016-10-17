@@ -21,6 +21,10 @@ void myInit(void)
 
 }
 
+GLfloat f(GLfloat x, GLfloat z) {
+	return 2 * x*x + 2 * z*z - 1;
+}
+
 void eyeAt(GLfloat r) {
 	eyez = r * sin(vAngle) * cos(hAngle);
 	eyex = r * sin(vAngle) * sin(hAngle);
@@ -38,8 +42,21 @@ void display() {
 	gluLookAt(eyex, eyey, eyez, 0, 0, 0, 0, 1, 0);
 
 	// draw a blue sphere
-	 glColor3f(0.0, 0.0, 1.0);
-	 glutWireSphere(2.0, 10, 10);
+	 GLfloat xstart = -2, xend = 2;
+	 GLfloat zstart = -2, zend = 2;
+	 GLfloat inc = 0.2;
+
+	 for (GLfloat x = xstart; x < xend; x = x + inc) {
+		 for (GLfloat z = zstart; z < zend; z = z + inc) {
+			 glColor3f(0.0, 0.0, 1.0);
+			 glBegin(GL_QUADS);
+				glVertex3f(x, f(x, z), z);
+				glVertex3f(x + inc, f(x + inc, z), z);
+				glVertex3f(x + inc, f(x + inc, z + inc), z + inc);
+				glVertex3f(x, f(x, z + inc), z + inc);
+			 glEnd();
+		 }
+	 }
 
 	// draw a yellow plane	
 	glBegin(GL_QUADS);
