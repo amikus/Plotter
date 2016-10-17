@@ -14,7 +14,7 @@ void myInit(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// background color: black
 	glColor3f(1.0f, 1.0f, 1.0f);		// drawing color: white
-	glLineWidth(5.0);					// a line is 5 pixels wide
+	glLineWidth(1.0);					// a line is 5 pixels wide
 	glMatrixMode(GL_PROJECTION);		// set matrix mode
 	glLoadIdentity();					// load identity matrix
 	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);	// orthographic mapping
@@ -46,6 +46,8 @@ void display() {
 	 GLfloat zstart = -2, zend = 2;
 	 GLfloat inc = 0.2;
 
+
+
 	 for (GLfloat x = xstart; x < xend; x = x + inc) {
 		 for (GLfloat z = zstart; z < zend; z = z + inc) {
 			 glColor3f(0.0, 0.0, 1.0);
@@ -55,6 +57,23 @@ void display() {
 				glVertex3f(x + inc, f(x + inc, z + inc), z + inc);
 				glVertex3f(x, f(x, z + inc), z + inc);
 			 glEnd();
+
+			 glEnable(GL_POLYGON_OFFSET_FILL);
+			 glPolygonOffset(1.0, 1.0);
+			 glColor3f(0.0, 0.0, 0.0);
+			 glBegin(GL_LINES);
+				 glVertex3f(x, f(x, z), z);
+				 glVertex3f(x + inc, f(x + inc, z), z);
+
+				 glVertex3f(x + inc, f(x + inc, z), z);
+				 glVertex3f(x + inc, f(x + inc, z + inc), z + inc);
+
+				 glVertex3f(x + inc, f(x + inc, z + inc), z + inc);
+				 glVertex3f(x, f(x, z + inc), z + inc);
+			 glEnd();
+
+			 glDisable(GL_POLYGON_OFFSET_FILL);
+			 
 		 }
 	 }
 
