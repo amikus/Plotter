@@ -12,12 +12,12 @@ GLfloat vAngle, hAngle;
 
 void myInit(void)
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);	// background color: black
-	glColor3f(1.0f, 1.0f, 1.0f);		// drawing color: white
-	glLineWidth(1.0);					// a line is 5 pixels wide
+	glClearColor(1.0, 1.0, 1.0, 1.0);	// background color: black
+	glColor3f(0.0f, 0.0f, 0.0f);		// drawing color: white
+	glLineWidth(2.0);					// a line is 5 pixels wide
 	glMatrixMode(GL_PROJECTION);		// set matrix mode
 	glLoadIdentity();					// load identity matrix
-	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);	// orthographic mapping
+	glOrtho(-3.5, 3.5, -3.0, 4.0, -10.0, 10.0);	// orthographic mapping
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
@@ -38,16 +38,16 @@ void display() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen to bg color
 
-	eyeAt(7.0);
+	eyeAt(2.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(eyex, eyey, eyez, 0, 0, 0, 0, 1, 0);
 
 	// draw a blue sphere
-	 GLfloat xstart = -2, xend = 2;
-	 GLfloat zstart = -2, zend = 2;
-	 GLfloat inc = 0.5;
+	 GLfloat xstart = -1, xend = 1;
+	 GLfloat zstart = -1, zend = 1;
+	 GLfloat inc = 0.1;
 
 
 
@@ -101,10 +101,10 @@ void reshape(int w, int h) {
 	glLoadIdentity();
 
 	if (w <= h) {
-		glOrtho(-10.0, 10.0, -10.0 * (GLfloat)h / (GLfloat)w, 10.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
+		glOrtho(-3.5, 3.5, -3.0 * (GLfloat)h / (GLfloat)w, 4.0 * (GLfloat)h / (GLfloat)w, -10.0, 10.0);
 	}
 	else {
-		glOrtho(-10.0 * (GLfloat)w / (GLfloat)h, 10.0* (GLfloat)w / (GLfloat)h, -10.0, 10.0, -10.0, 10.0);
+		glOrtho(-3.5 * (GLfloat)w / (GLfloat)h, 3.5* (GLfloat)w / (GLfloat)h, -3.0, 4.0, -10.0, 10.0);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
