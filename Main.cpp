@@ -1,10 +1,14 @@
 #include <stdlib.h>
+#include <math.h>
 #include <Windows.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
 
 using namespace std;
+
+GLfloat eyex, eyey, eyez;
+GLfloat vAngle, hAngle;
 
 void myInit(void)
 {
@@ -17,10 +21,21 @@ void myInit(void)
 
 }
 
+void eyeAt(GLfloat r) {
+	eyez = r * sin(vAngle) * cos(hAngle);
+	eyex = r * sin(vAngle) * sin(hAngle);
+	eyey = r * cos(vAngle);
+}
+
 void display() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen to bg color
+
+	eyeAt(7.0);
+
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(eyex, eyey, eyez, 0, 0, 0, 0, 1, 0);
 
 	// draw a blue sphere
 	 glColor3f(0.0, 0.0, 1.0);
@@ -58,6 +73,16 @@ void reshape(int w, int h) {
 	
 }
 
+void mouse(int x, int y) {
+
+	hAngle = (360.0 / glutGet(GLUT_WINDOW_WIDTH) * (x + 1)); // 360 degrees
+	vAngle = (180.0 / glutGet(GLUT_WINDOW_HEIGHT) * (y + 1)); // 180 degrees
+	hAngle = hAngle * 0.017453;
+	vAngle = vAngle * 0.017453;
+
+	glutPostRedisplay();
+}
+
 int main(int argc, char**argv)
 {
 	// Basic glut setup
@@ -72,6 +97,7 @@ int main(int argc, char**argv)
 	// register callback functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
+	glutMotionFunc(mouse);
 
 	glMatrixMode(GL_PROJECTION);
 
